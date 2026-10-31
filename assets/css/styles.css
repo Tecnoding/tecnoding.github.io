@@ -300,9 +300,12 @@ body.vista-cat .cat-all{display:none}
 @media (max-width:860px){
   .show-ui{justify-content:flex-end;padding-bottom:88px}
   .show-copy{gap:10px}
-  .show-title{font-size:2.3rem}
+  .show-title{font-size:1.85rem;line-height:1.05}
+  .show-cta .btn{padding-inline:20px;font-size:15px;white-space:nowrap}
+  .show-cta{flex-wrap:nowrap}
   .show-spec{font-size:16px}
-  .show-slide{padding:calc(var(--top) + 8px) 8% 49svh}
+  .show{min-height:680px}
+  .show-slide{padding:calc(var(--top) + 8px) 8% 372px}
   .show-nav{bottom:22px}
   .show-nav{gap:8px}
   .show-dots{gap:6px}
@@ -361,3 +364,5 @@ body.vista-cat .cat-all{display:none}
 .tile-tags .tile-badge{position:static}
 .pdp-stage .tile-tags{top:18px;left:18px;right:18px}
 @media (max-width:760px){.tile-tags{top:10px;left:10px;right:10px;gap:4px}.tile-tags .tile-badge{font-size:11px;padding:4px 9px}}
+.choice label[hidden]{display:none}
+@media (min-width:1000px){.show-copy{max-width:min(520px,36vw)}}

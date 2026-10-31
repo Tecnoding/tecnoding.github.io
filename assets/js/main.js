@@ -214,6 +214,11 @@
   form.addEventListener("change", (ev) => {
     if (ev.target.name !== "entrega") return;
     $$("[data-si]", form).forEach((d) => (d.hidden = d.dataset.si !== ev.target.value));
+    // en envíos nacionales no se puede pagar en efectivo
+    const efectivo = $("input[name=pago][value=Efectivo]", form), esEnvio = ev.target.value === "Envío nacional";
+    efectivo.closest("label").hidden = esEnvio;
+    efectivo.disabled = esEnvio;
+    if (esEnvio) efectivo.checked = false;
   });
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
@@ -222,7 +227,7 @@
     const falta = !d.entrega ? "Elige cómo quieres recibir tu pedido." : !d.pago ? "Elige cómo vas a pagar." : !(d.nombre || "").trim() ? "Escribe tu nombre." : !carrito.length ? "Tu carrito está vacío." : "";
     err.textContent = falta;
     if (falta) return;
-    const lineas = carrito.map((i) => `• ${i.cant} × ${C[i.id].n}${i.v || i.color ? " (" + [i.v, i.color].filter(Boolean).join(", ") + ")" : ""} — ${dinero(i.precio * i.cant)}`);
+    const lineas = carrito.map((i) => `• ${i.cant} × ${C[i.id].n}${i.v || i.color ? " (" + [i.v, i.color].filter(Boolean).join(", ") + ")" : ""} — ${dinero(i.precio * i.cant)}\n${location.origin}/producto/${C[i.id].u}/`);
     let entrega = d.entrega;
     if (d.entrega === "Delivery en Barinas" && d.zona) entrega += " · " + d.zona;
     if (d.entrega === "Envío nacional") entrega += ` · ${d.agencia}${d.ciudad ? " · " + d.ciudad : ""}${d.cedula ? " · C.I. " + d.cedula : ""}`;
