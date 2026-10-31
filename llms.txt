@@ -17,6 +17,7 @@
 - [D2000 Ultra](https://tecnoding.github.io/producto/d2000/): $22. Diseño Ultra redondo. Dos correas incluidas. Llamadas por Bluetooth.
 - [C30 Pro Big](https://tecnoding.github.io/producto/c30/): $22. Pantalla grande de 2,19″. Diseño resistente. Varios modos deportivos.
 - [H11](https://tecnoding.github.io/producto/h11/): $22. Caja robusta tipo outdoor. Correa deportiva. Carga inalámbrica.
+- [M23 12 en 1](https://tecnoding.github.io/producto/m23/): $20. Reloj con correas de varios colores. Cargador y estuche protector incluidos. Set listo para regalar.
 - [S9 Ultra](https://tecnoding.github.io/producto/s9-ultra/): $20. Tres correas incluidas. Pantalla de 49 mm. Llamadas por Bluetooth.
 - [GTS 6](https://tecnoding.github.io/producto/gts6/): $20. Pantalla redonda elegante. Gris, negro, rosa o blanco. Notificaciones y salud.
 - [T10 Mini](https://tecnoding.github.io/producto/t10-mini/): $20. Tamaño compacto de 41 mm. Dos correas incluidas. Ideal para muñecas pequeñas.
@@ -47,13 +48,19 @@
 - [Humidificador volcán](https://tecnoding.github.io/producto/hum-volcan/): $18. Bruma con efecto de llama. Para aceites esenciales. Ideal para el cuarto.
 - [Humidificador sunset](https://tecnoding.github.io/producto/hum-sunset/): $15. Lámpara de atardecer. Bruma fresca. Rosa o blanco.
 - [Humidificador jardín de flores](https://tecnoding.github.io/producto/hum-jardin-flores/): $15. Flores dentro de la cúpula. Luz cálida. Bruma fresca.
-- [Humidificador de flor](https://tecnoding.github.io/producto/hum-flor/): $15. Acabado tipo madera. Luz LED. Bruma fresca.
-- [Humidificador de madera floral](https://tecnoding.github.io/producto/hum-madera-floral/): $15. Forma de florero. Luz LED. Para aceites esenciales.
+- [Humidificador de flor](https://tecnoding.github.io/producto/hum-flor/): $15. Forma de florero con acabado tipo madera. Luz LED. Para aceites esenciales.
 - [Humidificador de madera](https://tecnoding.github.io/producto/hum-madera/): $8. Oscuro o claro. Luz LED de colores. Botón táctil.
 - [Humidificador de osito](https://tecnoding.github.io/producto/hum-osito/): $8. Diseño de osito. Luz nocturna. Carga por USB.
+- [Humidificador de casita](https://tecnoding.github.io/producto/hum-casita/): $8. Forma de casita. Rosa o azul. Bruma fresca.
 - [Humidificador nave espacial](https://tecnoding.github.io/producto/hum-nave/): $8. Forma de nave. Luz de colores. Carga por USB.
 - [Humidificador domo](https://tecnoding.github.io/producto/hum-domo/): $5. Compacto. Luz ambiental. Varios colores.
 - [Esencias para humidificador](https://tecnoding.github.io/producto/esencias/): $2. Frutales, florales y frescas. Frasco con gotero. Precio por frasco.
+
+## [Mini ventiladores](https://tecnoding.github.io/categoria/ventiladores/)
+
+- [Mini ventilador de fútbol](https://tecnoding.github.io/producto/vent-futbol/): $22. Diseño de balón de fútbol. Se engancha con pinza. Con luz.
+- [Mini ventilador de escritorio](https://tecnoding.github.io/producto/ventilador-escritorio/): $20. Recargable. Base firme para la mesa. Color rosado.
+- [Mini ventilador de pinza](https://tecnoding.github.io/producto/ventilador-clip/): $20. Recargable. Se engancha con pinza. Color rosado.
 
 ## [Jardines infinitos](https://tecnoding.github.io/categoria/jardines/)
 
@@ -78,14 +85,14 @@
 ## [Mini impresoras](https://tecnoding.github.io/categoria/impresoras/)
 
 - [Combo mini impresora](https://tecnoding.github.io/producto/combo-impresora/): $30. Impresora + rollos de colores. Marcadores y stickers. Listo para regalar.
-- [Mini impresora térmica](https://tecnoding.github.io/producto/impresora-gato/): $25. Imprime por Bluetooth. No usa tinta. Cabe en la mano.
+- [Mini impresora térmica de gatito](https://tecnoding.github.io/producto/impresora-gato/): $25. Imprime por Bluetooth. No usa tinta. Cabe en la mano.
 - [Mini impresora recargable](https://tecnoding.github.io/producto/impresora-recargable/): $25. Batería recargable. Imprime desde la app. Blanca o azul.
+- [Mini impresora térmica](https://tecnoding.github.io/producto/impresora-clasica/): $25. Imprime por Bluetooth. No usa tinta. Incluye cable USB.
 - [Rollitos para mini impresora](https://tecnoding.github.io/producto/rollitos/): $2. Blancos, de colores o sticker. Precio por rollo.
 
 ## [Videojuegos](https://tecnoding.github.io/categoria/videojuegos/)
 
 - [Consola SUP X7M](https://tecnoding.github.io/producto/sup-x7m/): $28. Mando extra para dos jugadores. Juegos clásicos incluidos. Recargable.
-- [Consola SUP G5](https://tecnoding.github.io/producto/sup-g5/): $15. Juegos clásicos incluidos. Pantalla a color. Recargable.
 
 ## [Accesorios](https://tecnoding.github.io/categoria/accesorios/)
 

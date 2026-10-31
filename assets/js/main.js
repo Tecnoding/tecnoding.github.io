@@ -46,6 +46,7 @@
     const p = C[id];
     if (!p) return;
     const v = variante || (p.v.length ? p.v[0][0] : "");
+    color = color || (p.col.length ? p.col[0][0] : "");
     const precio = v ? (p.v.find((x) => x[0] === v) || [, p.p])[1] : p.p;
     const linea = carrito.find((i) => i.id === id && i.v === v && (i.color || "") === color);
     if (linea) linea.cant += cant; else carrito.push({ id, v, precio, cant, color });
@@ -54,7 +55,8 @@
     volar(origen, id);
     const cuenta = $("#cart-count");
     cuenta.classList.remove("pop"); void cuenta.offsetWidth; cuenta.classList.add("pop");
-    avisar("¡Ding! " + p.n + " va en tu carrito");
+    const eleccion = [v, color].filter(Boolean).join(", ");
+    avisar("¡Ding! " + p.n + (eleccion ? " (" + eleccion + ")" : "") + " va en tu carrito");
   }
 
   function volar(origen, id) {
@@ -74,6 +76,12 @@
     ], { duration: 750, easing: "cubic-bezier(.5,0,.3,1)" }).onfinish = () => img.remove();
   }
 
+  function opciones(i, k) {
+    const p = C[i.id];
+    const lista = (etiqueta, campo, vals) => vals.length ? `<label class="cart-opt">${etiqueta}<select data-opcion="${campo}" data-linea="${k}">${vals.map((n) => `<option${n === i[campo] ? " selected" : ""}>${n}</option>`).join("")}</select></label>` : "";
+    return lista("Versión", "v", p.v.map((x) => x[0])) + lista("Color", "color", p.col.map((x) => x[0]));
+  }
+
   function pintarCarrito() {
     const n = carrito.reduce((s, i) => s + i.cant, 0);
     const cuenta = $("#cart-count");
@@ -86,7 +94,7 @@
     $("#cart-items").innerHTML = carrito.map((i, k) => `
       <li class="cart-item">
         <span class="cart-item-img"><img src="/assets/img/productos/${i.id}.webp" alt=""></span>
-        <div><b><a href="/producto/${C[i.id].u}/">${C[i.id].n}</a></b>${i.v || i.color ? `<small>${[i.v, i.color].filter(Boolean).join(" · ")}</small>` : ""}<small>${dinero(i.precio)} c/u</small>
+        <div><b><a href="/producto/${C[i.id].u}/">${C[i.id].n}</a></b>${opciones(i, k)}<small>${dinero(i.precio)} c/u</small>
           <div class="qty"><button type="button" data-linea="${k}" data-d="-1" aria-label="Quitar uno">−</button><output>${i.cant}</output><button type="button" data-linea="${k}" data-d="1" aria-label="Agregar uno">+</button></div>
         </div>
         <div><span class="cart-item-price">${dinero(i.precio * i.cant)}</span><button type="button" class="cart-item-del" data-borrar="${k}">Quitar</button></div>
@@ -102,6 +110,18 @@
       l.cant += +b.dataset.d;
       if (l.cant < 1) carrito.splice(+b.dataset.linea, 1);
     }
+    guardar();
+    pintarCarrito();
+  });
+
+  $("#cart-items").addEventListener("change", (ev) => {
+    const s = ev.target.closest("select[data-opcion]");
+    if (!s) return;
+    const k = +s.dataset.linea, l = carrito[k], p = C[l.id];
+    l[s.dataset.opcion] = s.value;
+    if (s.dataset.opcion === "v") l.precio = p.v.find((x) => x[0] === s.value)[1];
+    const igual = carrito.findIndex((o, n) => n !== k && o.id === l.id && o.v === l.v && (o.color || "") === (l.color || ""));
+    if (igual >= 0) { carrito[igual].cant += l.cant; carrito.splice(k, 1); }
     guardar();
     pintarCarrito();
   });
@@ -174,8 +194,7 @@
     const add = ev.target.closest("[data-add]");
     if (!add) return;
     const p = C[add.dataset.add];
-    // si hay que elegir color o versión, primero va a su página
-    if (p && (p.v.length || p.col.length)) { location.href = `/producto/${p.u}/`; return; }
+    if (!p) return;
     const tile = add.closest(".tile");
     agregar(add.dataset.add, "", 1, tile ? $(".tile-stage img", tile) : null);
   });
