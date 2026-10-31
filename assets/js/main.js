@@ -61,7 +61,7 @@
     if (!origen || quieto) return;
     const desde = origen.getBoundingClientRect(), hasta = $("#cart-open").getBoundingClientRect();
     const img = document.createElement("img");
-    img.src = "assets/img/productos/" + id + ".webp";
+    img.src = "/assets/img/productos/" + id + ".webp";
     img.className = "fly";
     const lado = Math.min(140, desde.width);
     Object.assign(img.style, { left: desde.left + desde.width / 2 - lado / 2 + "px", top: desde.top + desde.height / 2 - lado / 2 + "px", width: lado + "px", height: lado + "px" });
@@ -85,8 +85,8 @@
     $("#cart-total").textContent = $("#cart-total-2").textContent = dinero(total());
     $("#cart-items").innerHTML = carrito.map((i, k) => `
       <li class="cart-item">
-        <span class="cart-item-img"><img src="assets/img/productos/${i.id}.webp" alt=""></span>
-        <div><b>${C[i.id].n}</b>${i.v || i.color ? `<small>${[i.v, i.color].filter(Boolean).join(" · ")}</small>` : ""}<small>${dinero(i.precio)} c/u</small>
+        <span class="cart-item-img"><img src="/assets/img/productos/${i.id}.webp" alt=""></span>
+        <div><b><a href="/producto/${C[i.id].u}/">${C[i.id].n}</a></b>${i.v || i.color ? `<small>${[i.v, i.color].filter(Boolean).join(" · ")}</small>` : ""}<small>${dinero(i.precio)} c/u</small>
           <div class="qty"><button type="button" data-linea="${k}" data-d="-1" aria-label="Quitar uno">−</button><output>${i.cant}</output><button type="button" data-linea="${k}" data-d="1" aria-label="Agregar uno">+</button></div>
         </div>
         <div><span class="cart-item-price">${dinero(i.precio * i.cant)}</span><button type="button" class="cart-item-del" data-borrar="${k}">Quitar</button></div>
@@ -106,25 +106,24 @@
     pintarCarrito();
   });
 
-  /* ---------- Diálogos accesibles (ficha y carrito) ---------- */
+  /* ---------- Diálogo del carrito ---------- */
   let ultimoFoco = null;
   function abrir(dlg, enfocar) {
     ultimoFoco = document.activeElement;
     dlg.hidden = false;
     document.documentElement.style.overflow = "hidden";
-    if (conGsap()) gsap.fromTo(dlg.id === "cart" ? $(".cart-panel", dlg) : dlg, dlg.id === "cart" ? { x: 60, opacity: 0 } : { y: 24, opacity: 0 },
-      { x: 0, y: 0, opacity: 1, duration: 0.45, ease: "power3.out", clearProps: "transform,translate,opacity" });
+    if (conGsap()) gsap.fromTo($(".cart-panel", dlg), { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", clearProps: "transform,translate,opacity" });
     (enfocar || $("button, [href], input", dlg)).focus();
   }
   function cerrar(dlg) {
     dlg.hidden = true;
-    if ($("#sheet").hidden && $("#cart").hidden) document.documentElement.style.overflow = "";
+    document.documentElement.style.overflow = "";
     if (ultimoFoco) ultimoFoco.focus();
   }
   document.addEventListener("keydown", (ev) => {
-    const abierto = !$("#sheet").hidden ? $("#sheet") : !$("#cart").hidden ? $("#cart") : null;
+    const abierto = !$("#cart").hidden ? $("#cart") : null;
     if (!abierto) return;
-    if (ev.key === "Escape") { if (abierto === $("#sheet")) cerrarFicha(); else cerrar(abierto); }
+    if (ev.key === "Escape") cerrar(abierto);
     if (ev.key === "Tab") {
       const f = $$("button:not([hidden]), [href], input:not([type=radio]), input[type=radio]:checked, select", abierto).filter((e) => e.offsetParent !== null);
       if (!f.length) return;
@@ -133,21 +132,14 @@
     }
   });
 
-  /* ---------- Página de producto (se puede compartir: #producto/id) ---------- */
+  /* ---------- Página de producto: fotos, colores, versiones y cantidad ---------- */
   const sheet = $("#sheet");
-  let fichaId = null, fichaCant = 1;
-  function abrirFicha(id) {
-    const p = C[id];
-    if (!p) return;
-    fichaId = id; fichaCant = 1;
-    $("#sheet-qty").textContent = 1;
-    $("#sheet-cat").textContent = p.c;
-    $("#sheet-name").textContent = p.n;
-    $("#sheet-specs").innerHTML = p.s.map((s) => `<li>${s}</li>`).join("");
+  if (sheet) {
+    const id = sheet.dataset.id, p = C[id];
+    let cant = 1;
     const stage = $("#sheet-stage"), img = $("#sheet-img");
     const verFoto = (src, esFoto) => { img.src = src; img.alt = esFoto ? p.n + ", foto real" : p.n; stage.classList.toggle("is-photo", esFoto); };
-    verFoto("assets/img/productos/" + id + ".webp", false);
-    const fotos = [["assets/img/productos/" + id + ".webp", false], ...p.f.map((f) => ["assets/img/fotos/" + f, true])];
+    const fotos = [["/assets/img/productos/" + id + ".webp", false], ...p.f.map((f) => ["/assets/img/fotos/" + f, true])];
     $("#sheet-thumbs").innerHTML = fotos.length > 1 ? fotos.map(([src], k) => `<button type="button" aria-pressed="${k === 0}" aria-label="${k ? "Foto real " + k : "Producto"}" data-foto="${k}"><img src="${src}" alt=""></button>`).join("") : "";
     $$("#sheet-thumbs button").forEach((b) => b.addEventListener("click", () => {
       $$("#sheet-thumbs button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
@@ -158,49 +150,32 @@
     $("#sheet-color-name").textContent = p.col.length ? p.col[0][0] : "";
     $("#sheet-variants").hidden = !p.v.length;
     $("#sheet-variant-list").innerHTML = p.v.map(([n, pr], k) => `<label><input type="radio" name="variante" value="${n}" ${k ? "" : "checked"}><span>${n} · ${dinero(pr)}</span></label>`).join("");
-    actualizarPrecioFicha();
-    abrir(sheet, $(".pdp-back", sheet));
-    sheet.scrollTop = 0;
+    const unitario = () => { const v = $("input[name=variante]:checked", sheet); return v ? p.v.find((x) => x[0] === v.value)[1] : p.p; };
+    const actualizar = () => { $("#sheet-price").textContent = dinero(unitario() * cant); };
+    actualizar();
+    $("#sheet-variant-list").addEventListener("change", actualizar);
+    $("#sheet-color-list").addEventListener("change", (ev) => { $("#sheet-color-name").textContent = ev.target.value; });
+    $$("[data-qty]", sheet).forEach((b) => b.addEventListener("click", () => {
+      cant = Math.max(1, cant + +b.dataset.qty);
+      $("#sheet-qty").textContent = cant;
+      actualizar();
+    }));
+    $("#sheet-add").addEventListener("click", () => {
+      const v = $("input[name=variante]:checked", sheet), col = $("input[name=color]:checked", sheet);
+      agregar(id, v ? v.value : "", cant, img, col ? col.value : "");
+    });
   }
-  function precioFicha() {
-    const p = C[fichaId];
-    const v = $("input[name=variante]:checked", sheet);
-    return v ? p.v.find((x) => x[0] === v.value)[1] : p.p;
-  }
-  function actualizarPrecioFicha() { $("#sheet-price").textContent = dinero(precioFicha() * fichaCant); }
-  $("#sheet-variant-list").addEventListener("change", actualizarPrecioFicha);
-  $("#sheet-color-list").addEventListener("change", (ev) => { $("#sheet-color-name").textContent = ev.target.value; });
-  $$("[data-qty]", sheet).forEach((b) => b.addEventListener("click", () => {
-    fichaCant = Math.max(1, fichaCant + +b.dataset.qty);
-    $("#sheet-qty").textContent = fichaCant;
-    actualizarPrecioFicha();
-  }));
-  const cerrarFicha = () => { if (location.hash.startsWith("#producto/")) history.back(); else cerrar(sheet); };
-  $("#sheet-add").addEventListener("click", () => {
-    const v = $("input[name=variante]:checked", sheet), col = $("input[name=color]:checked", sheet);
-    agregar(fichaId, v ? v.value : "", fichaCant, $("#sheet-img"), col ? col.value : "");
-    cerrarFicha();
-  });
-  $$("[data-close]", sheet).forEach((b) => b.addEventListener("click", cerrarFicha));
-  function revisarRuta() {
-    const r = location.hash.match(/^#producto\/(.+)$/);
-    if (r && C[r[1]]) { abrirFicha(r[1]); return; }
-    if (!sheet.hidden) cerrar(sheet);
-    const cat = location.hash.match(/^#categoria\/(.+)$/);
-    const sec = cat && document.getElementById(cat[1]);
-    document.body.classList.toggle("vista-cat", !!sec);
-    $$(".cat").forEach((s) => s.classList.toggle("is-open", s === sec));
-    if (sec) scrollTo({ top: 0, behavior: "auto" });
-    if (window.ScrollTrigger) ScrollTrigger.refresh();
-  }
-  addEventListener("hashchange", revisarRuta);
+
+  /* Enlaces viejos con # siguen llegando a su página */
+  const vieja = location.hash.match(/^#(producto|categoria)\/(.+)$/);
+  if (vieja) location.replace(vieja[1] === "producto" && C[vieja[2]] ? `/producto/${C[vieja[2]].u}/` : `/${vieja[1]}/${vieja[2]}/`);
 
   document.addEventListener("click", (ev) => {
     const add = ev.target.closest("[data-add]");
     if (!add) return;
     const p = C[add.dataset.add];
     // si hay que elegir color o versión, primero va a su página
-    if (p && (p.v.length || p.col.length)) { location.hash = "producto/" + add.dataset.add; return; }
+    if (p && (p.v.length || p.col.length)) { location.href = `/producto/${p.u}/`; return; }
     const tile = add.closest(".tile");
     agregar(add.dataset.add, "", 1, tile ? $(".tile-stage img", tile) : null);
   });
@@ -239,8 +214,6 @@
   });
   pintarCarrito();
 
-  revisarRuta();
-
   /* ---------- Buscador de la barra ---------- */
   const norm = (t) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const entrada = $("#search-input"), caja = $("#search-res");
@@ -250,12 +223,12 @@
     if (!q) { caja.hidden = true; return; }
     const pal = q.split(/\s+/);
     const res = indice.filter((x) => pal.every((w) => x.t.includes(w))).slice(0, 8);
-    caja.innerHTML = res.length ? res.map(({ id, p }) => `<a href="#producto/${id}"><img src="assets/img/productos/${id}.webp" alt=""><span><b>${p.n}</b><small>${p.c}</small></span><strong>${dinero(p.v.length ? Math.min(...p.v.map((v) => v[1])) : p.p)}</strong></a>`).join("") : "<p>No encontramos ese producto. Escríbenos por WhatsApp y te ayudamos.</p>";
+    caja.innerHTML = res.length ? res.map(({ id, p }) => `<a href="/producto/${p.u}/"><img src="/assets/img/productos/${id}.webp" alt=""><span><b>${p.n}</b><small>${p.c}</small></span><strong>${dinero(p.v.length ? Math.min(...p.v.map((v) => v[1])) : p.p)}</strong></a>`).join("") : "<p>No encontramos ese producto. Escríbenos por WhatsApp y te ayudamos.</p>";
     caja.hidden = false;
   }
   entrada.addEventListener("input", buscar);
   entrada.addEventListener("focus", buscar);
-  $("#search").addEventListener("submit", (ev) => { ev.preventDefault(); const a = $("a", caja); if (a) { location.hash = a.getAttribute("href"); caja.hidden = true; entrada.blur(); } });
+  $("#search").addEventListener("submit", (ev) => { ev.preventDefault(); const a = $("a", caja); if (a) location.href = a.getAttribute("href"); });
   caja.addEventListener("click", () => { caja.hidden = true; entrada.value = ""; });
   document.addEventListener("click", (ev) => { if (!ev.target.closest("#search")) caja.hidden = true; });
 
@@ -263,12 +236,13 @@
   function animarScroll() {
     if (!conGsap() || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
-    gsap.from(".rail-item", { y: 24, opacity: 0, duration: 0.7, stagger: 0.04, ease: "power3.out", scrollTrigger: { trigger: ".rail", start: "top 88%", once: true } });
+    const hay = (s) => !!$(s);
+    if (hay(".rail-item")) gsap.from(".rail-item", { y: 24, opacity: 0, duration: 0.7, stagger: 0.04, ease: "power3.out", scrollTrigger: { trigger: ".rail", start: "top 88%", once: true } });
     $$(".cat-head").forEach((h) => gsap.from(h.children, { y: 28, opacity: 0, duration: 0.8, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: h, start: "top 85%", once: true } }));
-    ScrollTrigger.batch(".tile", { start: "top 92%", once: true,
+    if (hay(".tile")) ScrollTrigger.batch(".tile", { start: "top 92%", once: true,
       onEnter: (els) => gsap.fromTo(els, { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.06, ease: "power3.out", clearProps: "transform,opacity" }) });
-    gsap.from(".step-tile", { scaleY: 0.4, transformOrigin: "50% 100%", opacity: 0, duration: 0.9, stagger: 0.12, ease: "expo.out", scrollTrigger: { trigger: ".steps", start: "top 80%", once: true } });
-    gsap.from(".close-copy > *", { y: 24, opacity: 0, duration: 0.8, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: ".close", start: "top 70%", once: true } });
+    if (hay(".step-tile")) gsap.from(".step-tile", { scaleY: 0.4, transformOrigin: "50% 100%", opacity: 0, duration: 0.9, stagger: 0.12, ease: "expo.out", scrollTrigger: { trigger: ".steps", start: "top 80%", once: true } });
+    if (hay(".close-copy")) gsap.from(".close-copy > *", { y: 24, opacity: 0, duration: 0.8, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: ".close", start: "top 70%", once: true } });
   }
   if (window.gsap) animarScroll(); else addEventListener("load", animarScroll);
 })();

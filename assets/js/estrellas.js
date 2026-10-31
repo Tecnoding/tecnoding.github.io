@@ -26,7 +26,7 @@
     $("show-spec").textContent = e.frase;
     $("show-price").textContent = "$" + String(p.p).replace(".", ",");
     $("show-add").dataset.add = e.id;
-    $("show-more").href = "#producto/" + e.id;
+    $("show-more").href = "/producto/" + window.CATALOGO[e.id].u + "/";
     if (window.gsap && !quieto) gsap.fromTo("#show-copy > *", { x: 18, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, stagger: 0.04, ease: "power3.out", overwrite: true });
     videos.forEach((v, j) => { if (v) { if (j === k && !quieto) v.play().catch(() => {}); else v.pause(); } });
   }

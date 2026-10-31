@@ -190,14 +190,14 @@ body.vista-cat .cat-all{display:none}
 .wa-float:hover{transform:translateY(-3px) scale(1.05)}
 
 /* ---------- Página de producto ---------- */
-.pdp,.cart{position:fixed;inset:0;z-index:80}
-.pdp[hidden],.cart[hidden]{display:none}
+.cart{position:fixed;inset:0;z-index:80}
+.cart[hidden]{display:none}
 .cart-back{position:absolute;inset:0;background:rgba(13,16,51,.55)}
-.pdp{background:#fff;overflow:auto}
-.pdp-bar{position:sticky;top:0;z-index:2;background:rgba(255,255,255,.9);padding:14px var(--m)}
-.pdp-back{border:0;background:none;font-weight:800;color:var(--azul);font-size:16px;padding:8px 0}
+.pdp{background:#fff;padding-top:var(--top)}
+.pdp-bar{z-index:2;background:rgba(255,255,255,.9);padding-block:14px}
+.pdp-back{display:inline-block;text-decoration:none;font-weight:800;color:var(--azul);font-size:16px;padding:8px 0}
 .pdp-in{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);padding:8px 0 80px;align-items:start}
-.pdp-media{position:sticky;top:64px;display:flex;flex-direction:column;gap:14px}
+.pdp-media{position:sticky;top:calc(var(--top) + 16px);display:flex;flex-direction:column;gap:14px}
 .pdp-stage{aspect-ratio:1/1;background:#F4F6FC;border-radius:28px;overflow:hidden;display:grid;place-items:center}
 .pdp-stage img{width:80%;height:80%;object-fit:contain}
 .pdp-stage.is-photo img{width:100%;height:100%;object-fit:cover}
@@ -207,7 +207,7 @@ body.vista-cat .cat-all{display:none}
 .sheet-thumbs img{width:100%;height:100%;object-fit:cover}
 .pdp-copy{display:flex;flex-direction:column;gap:18px;padding-top:12px}
 .sheet-cat{font-weight:700;color:var(--azul)}
-.pdp-copy h2{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:800;letter-spacing:-.04em}
+.pdp-copy h1{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:800;letter-spacing:-.04em}
 .pdp-h{font-size:18px;font-weight:800;letter-spacing:0}
 .sheet-specs{list-style:none;margin:-8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
 .sheet-specs li{position:relative;padding-left:20px}
@@ -302,6 +302,10 @@ body.vista-cat .cat-all{display:none}
   .show-spec{font-size:16px}
   .show-slide{padding:calc(var(--top) + 8px) 8% 49svh}
   .show-nav{bottom:22px}
+  .show-nav{gap:8px}
+  .show-dots{gap:6px}
+  .show-dots button{width:16px}
+  .show-dots button[aria-pressed="true"]{width:28px}
   .cat-head{grid-template-columns:1fr}
   .sec-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .sec-txt{flex-direction:column;gap:2px;padding:2px 12px 14px}
@@ -337,3 +341,14 @@ body.vista-cat .cat-all{display:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Páginas reales de sección y producto */
+@view-transition{navigation:auto}
+.cart-item b a{color:inherit;text-decoration:none}
+.pdp-note a{color:var(--azul);font-weight:700}
+.pdp-rel .cat-title{margin-bottom:32px}
+.faq{padding:clamp(56px,7vw,96px) 0;background:#F4F6FC}
+.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;margin-top:32px}
+.faq-grid h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.faq-grid p{color:var(--muted);font-size:17px;max-width:52ch}
+@media (max-width:760px){.faq-grid{grid-template-columns:1fr}}
