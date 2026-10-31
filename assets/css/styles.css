@@ -124,7 +124,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .sec-img img{position:absolute;inset:7%;width:86%;height:86%;object-fit:contain;transition:transform .5s var(--ease)}
 .sec-card:hover .sec-img img{transform:scale(1.05)}
 .sec-txt{display:flex;flex-direction:column;gap:2px;padding:4px 18px 18px}
-.sec-txt b{font-size:clamp(18px,1.6vw,23px);font-weight:800;letter-spacing:-.02em}
+.sec-txt b{font-size:clamp(15px,1.35vw,23px);font-weight:800;letter-spacing:-.02em}
 .sec-txt small{color:var(--muted);font-size:14px;white-space:nowrap}
 body.vista-cat .secs,body.vista-cat .show,body.vista-cat .how,body.vista-cat .close,body.vista-cat .cat:not(.is-open){display:none}
 body.vista-cat .rail{padding-top:calc(var(--top) + 28px)}
@@ -293,7 +293,7 @@ body.vista-cat .cat-all{display:none}
 
 /* ---------- Responsive ---------- */
 @media (max-width:1100px){
-  .rail-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:104px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  .rail-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:126px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
   .rail-list::-webkit-scrollbar{display:none}
   .mosaic{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
@@ -359,7 +359,8 @@ body.vista-cat .cat-all{display:none}
 @media (max-width:760px){.faq-grid{grid-template-columns:1fr}}
 .cart-opt{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-top:6px}
 .cart-opt select{font:inherit;font-weight:700;color:var(--noche);background:#F4F6FC;border:0;border-radius:10px;padding:5px 8px;max-width:150px}
-@media (max-width:1100px){.sec-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:861px) and (max-width:1100px){.sec-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:860px){.sec-txt b{font-size:clamp(14px,4.2vw,17px)}}
 .tile-tags{position:absolute;top:14px;left:14px;right:14px;z-index:2;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
 .tile-tags .tile-badge{position:static}
 .pdp-stage .tile-tags{top:18px;left:18px;right:18px}
