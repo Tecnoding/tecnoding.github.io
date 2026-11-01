@@ -4,7 +4,6 @@
 
 ## [Smartwatches](https://tecnoding.github.io/categoria/smartwatches/)
 
-- [Hello Plum H16 Ultra 49 mm](https://tecnoding.github.io/producto/hello-plum/): $60. Pantalla AMOLED de 2,02″. Caja de titanio de 49 mm. 4 GB para música sin el teléfono. Carga inalámbrica · IP67.
 - [Watch 7 réplica AAA](https://tecnoding.github.io/producto/watch7-replica/): $40. Pantalla redonda táctil. Llamadas por Bluetooth. Ritmo cardíaco, oxígeno y sueño.
 - [V20 Pro con inteligencia artificial](https://tecnoding.github.io/producto/v20-pro/): $40. Asistente con IA por voz. Pantalla redonda. Incluye correa extra de cuero.
 - [Serie 11 edición deportiva](https://tecnoding.github.io/producto/serie11-deportivo/): $35. Pantalla cuadrada grande. Correa deportiva perforada. Llamadas y notificaciones.
@@ -40,7 +39,6 @@
 ## [Proyectores](https://tecnoding.github.io/categoria/proyectores/)
 
 - [Astronauta proyector con música](https://tecnoding.github.io/producto/astronauta-musica/): $25. Parlante Bluetooth integrado. Estrellas y nebulosas. Control remoto.
-- [Proyector de nebulosa con base](https://tecnoding.github.io/producto/proyector-nebulosa/): $22. Base lunar. Cabeza ajustable. Control remoto.
 
 ## [Humidificadores](https://tecnoding.github.io/categoria/humidificadores/)
 
@@ -60,7 +58,6 @@
 
 - [Mini ventilador de fútbol](https://tecnoding.github.io/producto/vent-futbol/): $22. Diseño de balón de fútbol. Se engancha con pinza. Con luz.
 - [Mini ventilador de escritorio](https://tecnoding.github.io/producto/ventilador-escritorio/): $20. Recargable. Base firme para la mesa. Color rosado.
-- [Mini ventilador de pinza](https://tecnoding.github.io/producto/ventilador-clip/): $20. Recargable. Se engancha con pinza. Color rosado.
 
 ## [Jardines infinitos](https://tecnoding.github.io/categoria/jardines/)
 
@@ -78,8 +75,6 @@
 ## [Lámparas](https://tecnoding.github.io/categoria/lamparas/)
 
 - [Rosa eterna en cúpula](https://tecnoding.github.io/producto/rosas-eternas/): $15. Rosa con luces en cúpula de cristal. Roja, morada o tornasol. Lista para regalar.
-- [Lámpara recargable tipo pera](https://tecnoding.github.io/producto/lampara-pera/): $15. Hasta 8 horas de luz. Recargable por USB. Silicona suave.
-- [Lámparas de noche animalitos](https://tecnoding.github.io/producto/lamparas-noche/): $12. Recargables. Silicona, muy cuchis. Cuello flexible.
 - [Esfera de cristal 3D](https://tecnoding.github.io/producto/esfera-cristal/): $8. Grabado 3D en cristal. Base de madera con luz. Mundo, luna o sistema solar.
 
 ## [Mini impresoras](https://tecnoding.github.io/categoria/impresoras/)
